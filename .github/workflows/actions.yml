@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.11.2'
+          host: 'all_os'
+          target: 'wasm'
+          arch: 'wasm_multithread'
+
+      - uses: lovasoa/setup-emscripten@master
+        with:
+          emscripten-version: '4.0.7'
+
+      - run: qt-cmake -S src -B build
+      - run: cmake --build build
+      - run: cp build/{qtloader.js,Thunderstruck.js,Thunderstruck.wasm,Thunderstruck.html} bimi-logo.svg app
+
+      - uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy app --project-name=thunder

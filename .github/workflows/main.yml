@@ -15,9 +15,9 @@ jobs:
           target: 'wasm'
           arch: 'wasm_multithread'
 
-      - uses: lovasoa/setup-emscripten@master
+      - uses: emscripten-core/setup-emsdk@v15
         with:
-          emscripten-version: '4.0.7'
+          version: '4.0.7'
 
       - run: qt-cmake -S src -B build
       - run: cmake --build build

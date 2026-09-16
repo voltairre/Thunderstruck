@@ -21,11 +21,10 @@ jobs:
 
       - run: qt-cmake -S src -B build
       - run: cmake --build build
-      - run: ls build
       - run: cp build/{qtloader.js,Thunderstruck.js,Thunderstruck.wasm} app
 
       - uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy app --project-name=thunder
+          command: pages deploy app --project-name=chandr

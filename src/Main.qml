@@ -5,7 +5,7 @@ Window {
     visible: true
 
     Image {
-        source: "qrc:/qt/qml/Thunderstruck/assets/blur_full_green_energy.jpg"
+        source: "qrc:/qt/qml/website/assets/blur_full_green_energy.jpg"
         asynchronous: true
         fillMode: Image.PreserveAspectCrop
         clip: true

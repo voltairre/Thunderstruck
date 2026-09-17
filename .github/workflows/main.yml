@@ -19,9 +19,9 @@ jobs:
         with:
           version: '4.0.7'
 
-      - run: qt-cmake -S src -B build
-      - run: cmake --build build
-      - run: cp build/{qtloader.js,Thunderstruck.js,Thunderstruck.wasm} app
+      - run: qt-cmake -S src -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build build --parallel
+      - run: cp build/{qtloader.js,website.js,website.wasm} app
 
       - uses: cloudflare/wrangler-action@v4
         with:
